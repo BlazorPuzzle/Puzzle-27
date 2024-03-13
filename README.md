@@ -1,4 +1,4 @@
-# Blazor Puzzle #26
+# Blazor Puzzle #27
 
 ## Click Once, That's It
 
