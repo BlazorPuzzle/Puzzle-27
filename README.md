@@ -1,8 +1,8 @@
 # Blazor Puzzle #27
 
-## Click Once, That's It
+## Click Once, That's It!
 
-YouTube Video: https://youtu.be/n9nNZye-ns0
+YouTube Video: https://youtu.be/UI9ujzmU-fk
 
 BlazorPuzzle Home Page: https://blazorpuzzle.com
 
