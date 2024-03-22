@@ -1,0 +1,33 @@
+﻿@rendermode @(new InteractiveWebAssemblyRenderMode(false))
+@inject HttpClient Http
+
+
+<h2>Episode Details</h2>
+
+@if (episode == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<h4><b style="margin-right:1em;">Title:</b>@episode.Title (@episode.Number)</h4>
+	<p><b style="margin-right:1em">Published:</b>@episode.PublishDate</p>
+}
+
+@code {
+
+	[Parameter] public int Number { get; set; } = 0;
+
+	private Episode episode;
+
+	protected override async Task OnParametersSetAsync()
+	{
+
+		if (Number > 0)
+		{
+			episode = await Http.GetFromJsonAsync<Episode>($"api/episodes/{Number}");
+		}
+		await base.OnParametersSetAsync();
+	}
+
+}

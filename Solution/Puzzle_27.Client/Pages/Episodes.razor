@@ -1,0 +1,42 @@
+﻿@page "/episodes"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@rendermode @(new InteractiveWebAssemblyRenderMode(false))
+@inject HttpClient Http
+
+<h3>Episodes</h3>
+
+<div style="height:200px; overflow-y: scroll">
+<QuickGrid Items="@episodes" >
+	<PropertyColumn Property="@(e => e.Number)" Sortable="true" />
+	<PropertyColumn Property="@(e => e.Title)" />
+	<TemplateColumn Title="Actions">
+		<button @onclick="() => ShowDetails(context)">Details</button>
+	</TemplateColumn>
+</QuickGrid>
+</div>
+
+@if (showingDetails) {
+	<EpisodeDetails Number="@selectedEpisodeNumber" />
+}
+
+@code {
+
+	private IQueryable<Episode> episodes;
+
+	private bool showingDetails = false;
+
+	private int selectedEpisodeNumber = 0;
+
+	protected override async Task OnInitializedAsync()
+	{
+		episodes = (await Http.GetFromJsonAsync<List<Episode>>("api/episodes")).AsQueryable();
+		await base.OnInitializedAsync();
+	}
+
+	private void ShowDetails(Episode episode)
+	{
+		showingDetails = true;
+		selectedEpisodeNumber = episode.Number;
+	}
+
+}
